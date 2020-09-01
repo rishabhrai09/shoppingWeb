@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EventEmitter } from 'protractor';
+import { AuthService } from './auth/auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -7,15 +8,10 @@ import { EventEmitter } from 'protractor';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  constructor(){
+  constructor(private authService:AuthService){
 
   }
   ngOnInit(){
-
+this.authService.autoLogin()
   }
-  loadedFeature='recipe'
-  onNavigate(feature:string){
-this.loadedFeature=feature;
-  }
-  title = 'practice';
 }

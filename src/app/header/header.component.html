@@ -5,23 +5,29 @@
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
       <a class="navbar-brand" href="#">Repice list</a>
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-        <li class="nav-item active">
-          <a class="nav-link" href="#" (click)="onSelect('recipe')" >Recipes <span class="sr-only">(current)</span></a>
+        <li class="nav-item" routerLinkActive="active" *ngIf="isAuthenticated">
+          <a class="nav-link" routerLink="/recipes" >Recipes <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#" (click)="onSelect('shopping-list')">Shopping list</a>
+        <li class="nav-item" routerLinkActive="active" *ngIf="!isAuthenticated">
+          <a class="nav-link" routerLink="/auth">Login</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/shopping">Shopping list</a>
         </li>
         
       </ul>
       
       <ul class="navbar-nav mt-2 mt-lg-0"  >
-          <li class="mr-sm-2 nav-item dropdown"  appDropdwon #r="appDropdwon"  > 
+        <li class="nav-item">
+          <a class="nav-link"  style="cursor: pointer;" *ngIf="isAuthenticated" (click)="onLogout()">Logout</a>
+        </li>
+          <li class="mr-sm-2 nav-item dropdown"  appDropdwon #r="appDropdwon"   *ngIf="isAuthenticated"> 
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Manage <span class="caret"></span>
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown" [ngClass]="{'show':r.isOpen}" >
-               <li> <a class="dropdown-item" href="#">Save Data</a></li>
-               <li> <a class="dropdown-item" href="#">Fetch Data </a></li>
+               <li> <a class="dropdown-item" style="cursor: pointer;" (click)="onSaveData()">Save Data</a></li>
+               <li> <a class="dropdown-item" style="cursor: pointer;"  (click)="onFetchData()">Fetch Data </a></li>
               
               </ul>
           </li>

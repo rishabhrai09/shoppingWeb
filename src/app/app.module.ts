@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {FormsModule, ReactiveFormsModule  } from '@angular/forms';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +18,13 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ShoppingListService } from './shopping-list/shopping-list.service';
 import { RecipesService } from './repices/recipes.service';
+import { RecipeStartComponent } from './repices/recipe-start/recipe-start.component';
+import { RecipeEditComponent } from './repices/recipe-edit/recipe-edit.component';
+import { AuthComponent } from './auth/auth/auth.component';
+import { LodingSpinner } from './shared/loding-spinner/lodingSpinner.component';
+import { AuthInterceptor } from './auth/auth/auth.intercepter';
+import { AuthService } from './auth/auth/auth.service';
+import { AlertComponent } from './shared/alertBox/alert.component';
 
 
 @NgModule({
@@ -28,16 +37,23 @@ import { RecipesService } from './repices/recipes.service';
     RecipeItemComponent,
     ShoppingListComponent,
     ShoppingEditComponent,
-    DropdwonDirective
+    DropdwonDirective,
+    RecipeStartComponent,
+    RecipeEditComponent,
+    AuthComponent,
+    LodingSpinner,
+    AlertComponent
+
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
-    BsDropdownModule.forRoot(),
-   TooltipModule.forRoot(),
-   ModalModule.forRoot()
+    HttpClientModule,
+    ReactiveFormsModule,
+    
   ],
-  providers: [ShoppingListService,RecipesService],
+  providers: [ShoppingListService,RecipesService,{provide:HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
